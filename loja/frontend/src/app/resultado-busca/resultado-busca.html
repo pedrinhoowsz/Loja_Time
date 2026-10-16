@@ -1,0 +1,30 @@
+<h2 class="page-title">Resultado da busca</h2>
+
+@if (loading) {
+  <div class="text-center py-4">
+    <div class="spinner-border text-success" role="status"></div>
+  </div>
+}
+
+@if (mensagem) {
+  <div class="alert alert-danger">{{ mensagem }}</div>
+}
+
+@if (!loading && !mensagem) {
+  <p class="text-muted mb-3">
+    {{ lista.length }} resultado(s)
+    @if (termo) { para "<strong>{{ termo }}</strong>" }
+  </p>
+
+  @if (lista.length === 0) {
+    <div class="alert alert-team">Nenhum produto encontrado. Tente outro termo de busca.</div>
+  }
+}
+
+<div class="row g-3 g-md-4">
+  @for (obj of lista; track obj.id) {
+    <div class="col-6 col-md-4 col-lg-3">
+      <app-produto-card [produto]="obj"></app-produto-card>
+    </div>
+  }
+</div>

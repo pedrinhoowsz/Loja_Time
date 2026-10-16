@@ -1,0 +1,76 @@
+.empty-cesta {
+  background: var(--team-white);
+  border-radius: 12px;
+  padding: 3rem 1rem;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.lista {
+  background: var(--team-white);
+  border-radius: 12px;
+  padding: 0.5rem 1rem;
+}
+
+.linha {
+  display: grid;
+  grid-template-columns: 72px 1fr 80px 110px 40px;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.linha:last-child { border-bottom: none; }
+
+.thumb {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  background: #f4f4f4;
+  border-radius: 6px;
+}
+
+.nome {
+  font-weight: 700;
+  color: var(--team-black);
+}
+
+.nome:hover { color: var(--team-green); }
+
+.valor {
+  font-weight: 700;
+  text-align: right;
+}
+
+.resumo-card {
+  background: var(--team-white);
+  border-radius: 12px;
+  padding: 1.5rem;
+  border: 2px solid var(--team-gold);
+}
+
+.resumo-card h5 {
+  color: var(--team-green-dark);
+  font-weight: 700;
+}
+
+/* Celular: cada item vira um cartão com duas linhas */
+@media (max-width: 575.98px) {
+  .linha {
+    grid-template-columns: 64px 1fr auto;
+    grid-template-areas:
+      'foto info remover'
+      'foto qtd  valor';
+    row-gap: 0.5rem;
+  }
+
+  .thumb { grid-area: foto; width: 64px; height: 64px; }
+  .info { grid-area: info; min-width: 0; }
+  .remover { grid-area: remover; justify-self: end; }
+  .qtd { grid-area: qtd; max-width: 90px; }
+  .valor { grid-area: valor; }
+}

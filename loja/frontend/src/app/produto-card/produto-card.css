@@ -1,0 +1,9 @@
+:host { display: block; height: 100%; }
+
+.foto { display: block; background: var(--team-white); }
+
+.card-title {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--team-black);
+}

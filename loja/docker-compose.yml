@@ -1,0 +1,17 @@
+# Opcional: sobe um MySQL pronto para o backend (docker compose up -d)
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: loja-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: il785612
+      MYSQL_DATABASE: loja_time
+    ports:
+      - "3306:3306"
+    volumes:
+      - loja-mysql-data:/var/lib/mysql
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+
+volumes:
+  loja-mysql-data:

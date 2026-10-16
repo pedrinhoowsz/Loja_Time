@@ -1,0 +1,43 @@
+<h2 class="page-title">Pedido</h2>
+
+@if (obj) {
+  <div class="alert alert-team">
+    <strong>Pedido realizado com sucesso!</strong> Obrigado pela compra.
+  </div>
+
+  <div class="caixa">
+    <div class="row g-2 mb-3">
+      <div class="col-6 col-md-3"><small class="text-muted d-block">Pedido</small><strong>#{{ obj.id }}</strong></div>
+      <div class="col-6 col-md-3"><small class="text-muted d-block">Status</small><strong>{{ obj.status }}</strong></div>
+      <div class="col-12 col-md-6">
+        <small class="text-muted d-block">Data</small>
+        <strong>{{ obj.dataPedido | date: 'dd/MM/yyyy HH:mm' }}</strong>
+      </div>
+    </div>
+
+    <div class="itens">
+      @for (item of obj.itens; track $index) {
+        <div class="item">
+          <img [src]="item.produto.imagem" [alt]="item.produto.nome">
+          <div class="flex-grow-1">
+            <strong>{{ item.produto.nome }}</strong>
+            <small class="text-muted d-block">
+              {{ item.quantidade }} x {{ item.precoUnitario | currency: 'BRL' }}
+              @if (item.tamanho) { · Tamanho {{ item.tamanho }} }
+            </small>
+          </div>
+          <strong>{{ item.quantidade * item.precoUnitario | currency: 'BRL' }}</strong>
+        </div>
+      }
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center pt-3">
+      <span class="fw-bold">Total</span>
+      <span class="price-tag">{{ obj.total | currency: 'BRL' }}</span>
+    </div>
+  </div>
+} @else {
+  <div class="alert alert-info">Nenhum pedido recente encontrado.</div>
+}
+
+<a routerLink="/" class="btn btn-team mt-3">Continuar comprando</a>

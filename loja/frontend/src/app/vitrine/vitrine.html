@@ -1,0 +1,29 @@
+<div class="hero-banner mb-4">
+  <h1>Camisas e Produtos Oficiais</h1>
+  <p>Vista a camisa do seu time com qualidade e autenticidade</p>
+</div>
+
+<h2 class="page-title">Vitrine de Produtos</h2>
+
+@if (loading) {
+  <div class="text-center py-5">
+    <div class="spinner-border text-success" role="status"></div>
+    <p class="mt-2">Carregando produtos...</p>
+  </div>
+}
+
+@if (mensagem) {
+  <div class="alert alert-danger">{{ mensagem }}</div>
+}
+
+@if (!loading && !mensagem && lista.length === 0) {
+  <div class="alert alert-warning"><strong>Vazio!</strong> Não existem produtos na vitrine!</div>
+}
+
+<div class="row g-3 g-md-4">
+  @for (obj of lista; track obj.id) {
+    <div class="col-6 col-md-4 col-lg-3">
+      <app-produto-card [produto]="obj"></app-produto-card>
+    </div>
+  }
+</div>

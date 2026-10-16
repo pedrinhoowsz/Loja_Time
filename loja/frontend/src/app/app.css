@@ -1,0 +1,123 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+main {
+  flex: 1;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+}
+
+/* ---------- Cabeçalho ---------- */
+.team-header {
+  background: linear-gradient(135deg, var(--team-green-dark) 0%, var(--team-green) 100%);
+  border-bottom: 4px solid var(--team-gold);
+  padding: 0.6rem 0;
+}
+
+.topo {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.marca {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--team-white);
+  font-weight: 700;
+  font-size: 1.4rem;
+  letter-spacing: 2px;
+  white-space: nowrap;
+}
+
+.marca:hover { color: var(--team-gold); }
+.marca-icone { font-size: 1.6rem; }
+
+.busca {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem 0.75rem;
+}
+
+.menu-link {
+  color: rgba(255, 255, 255, 0.92);
+  font-weight: 500;
+  padding: 0.4rem 0.5rem;
+  position: relative;
+  white-space: nowrap;
+}
+
+.menu-link:hover,
+.menu-link.ativo { color: var(--team-gold); }
+
+.menu-cesta { padding-right: 1.4rem; }
+
+.cesta-badge {
+  background: var(--team-gold);
+  color: var(--team-black);
+  font-size: 0.7rem;
+  font-weight: 700;
+  min-width: 18px;
+  height: 18px;
+  line-height: 18px;
+  text-align: center;
+  border-radius: 9px;
+  padding: 0 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+
+.menu-toggle {
+  display: none;
+  margin-left: auto;
+  background: transparent;
+  color: var(--team-white);
+  border: 1px solid var(--team-gold);
+  border-radius: 6px;
+  font-size: 1.3rem;
+  line-height: 1;
+  padding: 0.3rem 0.65rem;
+}
+
+/* ---------- Rodapé ---------- */
+.team-footer {
+  background: var(--team-black);
+  color: var(--team-gold);
+  padding: 1.25rem 0;
+  margin-top: 2rem;
+  font-size: 0.85rem;
+}
+
+/* ---------- Celular / tablet ---------- */
+@media (max-width: 991.98px) {
+  .menu-toggle { display: block; }
+  .busca { order: 3; flex-basis: 100%; }
+
+  .menu {
+    order: 4;
+    display: none;
+    flex-direction: column;
+    align-items: stretch;
+    flex-basis: 100%;
+    gap: 0.25rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .menu.aberto { display: flex; }
+  .menu-link { padding: 0.6rem 0.25rem; }
+  .menu-cesta { padding-right: 0.25rem; }
+  .cesta-badge { position: static; margin-left: 6px; display: inline-block; }
+  .menu .btn { width: 100%; padding: 0.6rem; }
+}

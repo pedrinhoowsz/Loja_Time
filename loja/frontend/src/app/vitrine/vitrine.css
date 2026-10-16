@@ -1,0 +1,26 @@
+.hero-banner {
+  background: linear-gradient(135deg, var(--team-green-dark), var(--team-green));
+  color: var(--team-white);
+  padding: 2.5rem 1.5rem;
+  border-radius: 12px;
+  text-align: center;
+  border-left: 6px solid var(--team-gold);
+}
+
+.hero-banner h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.hero-banner p {
+  font-size: 1.1rem;
+  opacity: 0.9;
+  margin-bottom: 0;
+}
+
+@media (max-width: 575.98px) {
+  .hero-banner { padding: 1.5rem 1rem; }
+  .hero-banner h1 { font-size: 1.4rem; }
+  .hero-banner p { font-size: 0.95rem; }
+}

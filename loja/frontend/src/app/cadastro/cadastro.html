@@ -1,0 +1,81 @@
+<div class="auth-container">
+  <div class="auth-card auth-card-wide">
+    <div class="auth-header">
+      <h2>{{ editando ? 'Meus dados' : 'Cadastro' }}</h2>
+      <p>{{ editando ? 'Atualize as informações da sua conta' : 'Cadastre-se para comprar na Fan Store' }}</p>
+    </div>
+
+    @if (mensagem) {
+      <div class="alert alert-success">{{ mensagem }}</div>
+    }
+    @if (erro) {
+      <div class="alert alert-danger">{{ erro }}</div>
+    }
+
+    <form #f="ngForm" (ngSubmit)="salvar(f)" [class.was-validated]="f.submitted" novalidate>
+      <div class="row">
+        <div class="col-12 col-md-6 mb-3">
+          <label for="txtNome" class="form-label">Nome</label>
+          <input id="txtNome" type="text" class="form-control" name="txtNome" [(ngModel)]="obj.nome"
+                 placeholder="Informe o seu nome" required>
+          <div class="invalid-feedback">Preencha esse campo!</div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label for="txtEmail" class="form-label">Email</label>
+          <input id="txtEmail" type="email" class="form-control" name="txtEmail" [(ngModel)]="obj.email"
+                 placeholder="Informe o seu email" required email>
+          <div class="invalid-feedback">Informe um email válido!</div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label for="txtSenha" class="form-label">{{ editando ? 'Confirme ou altere a senha' : 'Senha' }}</label>
+          <input id="txtSenha" type="password" class="form-control" name="txtSenha" [(ngModel)]="obj.senha"
+                 placeholder="Informe a sua senha" required [pattern]="padraoSenha" autocomplete="new-password">
+          <div class="invalid-feedback">
+            A senha deve conter pelo menos 8 caracteres, incluindo uma letra maiúscula, uma minúscula,
+            um número e um caractere especial (&#64;$!%*?&amp;).
+          </div>
+        </div>
+
+        <div class="col-12 col-md-6 mb-3">
+          <label for="txtTelefone" class="form-label">Telefone</label>
+          <input id="txtTelefone" type="text" class="form-control" name="txtTelefone" [(ngModel)]="obj.telefone"
+                 placeholder="(11) 91234-5678" [pattern]="padraoTelefone">
+          <div class="invalid-feedback">Informe um telefone válido!</div>
+        </div>
+
+        <div class="col-12 col-md-8 mb-3">
+          <label for="txtEndereco" class="form-label">Endereço</label>
+          <input id="txtEndereco" type="text" class="form-control" name="txtEndereco" [(ngModel)]="obj.endereco"
+                 placeholder="Rua, número e complemento">
+        </div>
+
+        <div class="col-12 col-md-4 mb-3">
+          <label for="txtCep" class="form-label">CEP</label>
+          <input id="txtCep" type="text" class="form-control" name="txtCep" [(ngModel)]="obj.cep"
+                 placeholder="00000-000">
+        </div>
+
+        <div class="col-12 col-md-8 mb-3">
+          <label for="txtCidade" class="form-label">Cidade</label>
+          <input id="txtCidade" type="text" class="form-control" name="txtCidade" [(ngModel)]="obj.cidade">
+        </div>
+
+        <div class="col-12 col-md-4 mb-3">
+          <label for="txtEstado" class="form-label">Estado</label>
+          <input id="txtEstado" type="text" class="form-control" name="txtEstado" [(ngModel)]="obj.estado"
+                 maxlength="2" placeholder="SP">
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-team w-100 mb-3" [disabled]="loading">
+        @if (loading) { Aguarde... } @else if (editando) { Atualizar } @else { Cadastrar }
+      </button>
+    </form>
+
+    @if (!editando) {
+      <div class="auth-links"><a routerLink="/login">← Já tenho conta</a></div>
+    }
+  </div>
+</div>

@@ -1,0 +1,73 @@
+<h2 class="page-title">Sua cesta de compras</h2>
+
+@if (mensagem) {
+  <div class="alert alert-info">{{ mensagem }}</div>
+}
+@if (erro) {
+  <div class="alert alert-danger">{{ erro }}</div>
+}
+
+@if (itens.length === 0) {
+  <div class="empty-cesta text-center">
+    <div class="empty-icon">🛒</div>
+    <h4>Sua cesta está vazia</h4>
+    <p class="text-muted">Adicione produtos da vitrine para continuar.</p>
+    <a routerLink="/" class="btn btn-team">Ir à vitrine</a>
+  </div>
+} @else {
+  <div class="row g-4">
+    <div class="col-12 col-lg-8">
+      <div class="lista">
+        @for (item of itens; track item.produto.id + '-' + item.tamanho; let i = $index) {
+          <div class="linha">
+            <img [src]="item.produto.imagem" class="thumb" [alt]="item.produto.nome">
+
+            <div class="info">
+              <a [routerLink]="['/detalhe', item.produto.id]" class="nome">{{ item.produto.nome }}</a>
+              <small class="text-muted d-block">{{ item.produto.time }}
+                @if (item.tamanho) { · Tamanho {{ item.tamanho }} }
+              </small>
+              <small class="text-muted d-block">{{ item.produto.preco | currency: 'BRL' }} cada</small>
+            </div>
+
+            <div class="qtd">
+              <input type="number" class="form-control form-control-sm" min="1" [max]="maxQuantidade"
+                     [name]="'qtd' + i" [ngModel]="item.quantidade"
+                     (ngModelChange)="alterarQuantidade(i, $event)" aria-label="Quantidade">
+            </div>
+
+            <div class="valor">{{ item.valorTotal | currency: 'BRL' }}</div>
+
+            <button type="button" class="btn btn-sm btn-outline-danger remover" (click)="remover(i)"
+                    aria-label="Remover item">✕</button>
+          </div>
+        }
+      </div>
+    </div>
+
+    <div class="col-12 col-lg-4">
+      <div class="resumo-card">
+        <h5>Resumo do pedido</h5>
+        <hr>
+        <div class="d-flex justify-content-between mb-2">
+          <span>Itens:</span>
+          <span>{{ cesta.getQuantidadeTotal() }}</span>
+        </div>
+        <div class="d-flex justify-content-between mb-3">
+          <span class="fw-bold">Total:</span>
+          <span class="price-tag">{{ cesta.getTotal() | currency: 'BRL' }}</span>
+        </div>
+
+        @if (!auth.isLoggedIn()) {
+          <div class="alert alert-warning small">Faça login para finalizar o pedido.</div>
+          <a routerLink="/login" [queryParams]="{ retorno: '/cesta' }" class="btn btn-team w-100 mb-2">Fazer login</a>
+        } @else {
+          <button type="button" class="btn btn-gold w-100 mb-2" (click)="finalizarPedido()" [disabled]="finalizando">
+            @if (finalizando) { Finalizando... } @else { Finalizar pedido }
+          </button>
+        }
+        <a routerLink="/" class="btn btn-team-outline w-100">Continuar comprando</a>
+      </div>
+    </div>
+  </div>
+}

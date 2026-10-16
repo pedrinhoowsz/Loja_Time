@@ -1,0 +1,44 @@
+<header class="team-header">
+  <div class="container topo">
+    <a class="marca" routerLink="/" (click)="fecharMenu()">
+      <span class="marca-icone">⚽</span>
+      <span class="marca-texto">FAN STORE</span>
+    </a>
+
+    <button type="button" class="menu-toggle" (click)="menuAberto = !menuAberto"
+            [attr.aria-expanded]="menuAberto" aria-controls="menu-principal" aria-label="Abrir menu">
+      {{ menuAberto ? '✕' : '☰' }}
+    </button>
+
+    <app-barrabusca class="busca" (buscou)="fecharMenu()"></app-barrabusca>
+
+    <nav id="menu-principal" class="menu" [class.aberto]="menuAberto">
+      <a class="menu-link" routerLink="/vitrine" routerLinkActive="ativo" (click)="fecharMenu()">Vitrine</a>
+      <a class="menu-link menu-cesta" routerLink="/cesta" routerLinkActive="ativo" (click)="fecharMenu()">
+        🛒 Cesta
+        @if (cesta.getQuantidadeTotal() > 0) {
+          <span class="cesta-badge">{{ cesta.getQuantidadeTotal() }}</span>
+        }
+      </a>
+      @if (auth.isLoggedIn()) {
+        <a class="menu-link" routerLink="/cadastro" routerLinkActive="ativo" (click)="fecharMenu()">
+          Olá, {{ auth.getCliente()?.nome }}
+        </a>
+        <button type="button" class="btn btn-sm btn-team-outline" (click)="sair()">Sair</button>
+      } @else {
+        <a class="menu-link" routerLink="/cadastro" routerLinkActive="ativo" (click)="fecharMenu()">Cadastro</a>
+        <a class="btn btn-sm btn-gold" routerLink="/login" (click)="fecharMenu()">Entrar</a>
+      }
+    </nav>
+  </div>
+</header>
+
+<main class="container">
+  <router-outlet />
+</main>
+
+<footer class="team-footer">
+  <div class="container text-center">
+    FAN STORE &copy; 2026 - Loja Oficial de Roupas de Time
+  </div>
+</footer>
