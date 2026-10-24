@@ -19,7 +19,50 @@
   margin-bottom: 0;
 }
 
+/* ---------- Filtros ---------- */
+.filtros {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.chip {
+  border: 2px solid var(--team-green);
+  background: var(--team-white);
+  color: var(--team-green);
+  border-radius: 999px;
+  padding: 0.25rem 0.9rem;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.chip:hover,
+.chip.ativo {
+  background: var(--team-green);
+  color: var(--team-white);
+}
+
+.selects {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.selects .form-select { min-width: 170px; }
+
+.btn-link { color: var(--team-green); }
+
 @media (max-width: 575.98px) {
+  .selects { width: 100%; }
+  .selects .form-select { min-width: 0; flex: 1; }
   .hero-banner { padding: 1.5rem 1rem; }
   .hero-banner h1 { font-size: 1.4rem; }
   .hero-banner p { font-size: 0.95rem; }

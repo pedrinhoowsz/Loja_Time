@@ -20,8 +20,43 @@
   <div class="alert alert-warning"><strong>Vazio!</strong> Não existem produtos na vitrine!</div>
 }
 
+@if (lista.length > 0) {
+  <div class="filtros mb-3">
+    <div class="chips" role="group" aria-label="Filtrar por categoria">
+      <button type="button" class="chip" [class.ativo]="!categoria" (click)="categoria = ''">Todos</button>
+      @for (c of categorias; track c) {
+        <button type="button" class="chip" [class.ativo]="categoria === c" (click)="categoria = c">{{ c }}</button>
+      }
+    </div>
+
+    <div class="selects">
+      <select class="form-select form-select-sm" name="time" [(ngModel)]="time" aria-label="Filtrar por time">
+        <option value="">Todos os times</option>
+        @for (t of times; track t) {
+          <option [value]="t">{{ t }}</option>
+        }
+      </select>
+      <select class="form-select form-select-sm" name="ordem" [(ngModel)]="ordem" aria-label="Ordenar">
+        <option value="padrao">Ordenar: destaques</option>
+        <option value="menor-preco">Menor preço</option>
+        <option value="maior-preco">Maior preço</option>
+        <option value="nome">Nome (A–Z)</option>
+      </select>
+    </div>
+  </div>
+
+  <p class="text-muted small mb-3">
+    {{ filtrada.length }} produto(s)
+    @if (temFiltro) { · <button type="button" class="btn btn-link btn-sm p-0 align-baseline" (click)="limparFiltros()">limpar filtros</button> }
+  </p>
+
+  @if (filtrada.length === 0) {
+    <div class="alert alert-team">Nenhum produto com esses filtros.</div>
+  }
+}
+
 <div class="row g-3 g-md-4">
-  @for (obj of lista; track obj.id) {
+  @for (obj of filtrada; track obj.id) {
     <div class="col-6 col-md-4 col-lg-3">
       <app-produto-card [produto]="obj"></app-produto-card>
     </div>
