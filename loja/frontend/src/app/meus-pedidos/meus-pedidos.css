@@ -1,0 +1,73 @@
+.vazio {
+  background: var(--team-white);
+  border-radius: 12px;
+  padding: 3rem 1rem;
+}
+
+.vazio-icone {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.pedido {
+  background: var(--team-white);
+  border-radius: 12px;
+  border: 2px solid var(--team-gold-light);
+  overflow: hidden;
+}
+
+.cabecalho {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+.cabecalho:hover { background: rgba(0, 100, 55, 0.04); }
+
+.status {
+  background: var(--team-gold-light);
+  color: var(--team-black);
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.seta { color: var(--team-green); }
+
+.itens {
+  padding: 0 1.25rem 0.75rem;
+  border-top: 1px solid #eee;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 0;
+  border-bottom: 1px solid #eee;
+}
+
+.item:last-child { border-bottom: none; }
+
+.item img {
+  width: 56px;
+  height: 56px;
+  object-fit: contain;
+  background: #f4f4f4;
+  border-radius: 6px;
+}
+
+.item a:hover { color: var(--team-green); }
+
+@media (max-width: 575.98px) {
+  .cabecalho { flex-wrap: wrap; gap: 0.5rem 1rem; padding: 0.9rem 1rem; }
+  .cabecalho .price-tag { font-size: 1.05rem; }
+  .itens { padding: 0 1rem 0.5rem; }
+}

@@ -3,6 +3,7 @@ import { Cadastro } from './cadastro/cadastro';
 import { Cesta } from './cesta/cesta';
 import { Detalhe } from './detalhe/detalhe';
 import { Login } from './login/login';
+import { MeusPedidos } from './meus-pedidos/meus-pedidos';
 import { Pedido } from './pedido/pedido';
 import { Reenvio } from './reenvio/reenvio';
 import { ResultadoBusca } from './resultado-busca/resultado-busca';
@@ -13,6 +14,7 @@ export const routes: Routes = [
   { path: 'cesta', component: Cesta },
   { path: 'detalhe/:id', component: Detalhe },
   { path: 'login', component: Login },
+  { path: 'meus-pedidos', component: MeusPedidos },
   { path: 'pedido', component: Pedido },
   { path: 'reenvio', component: Reenvio },
   { path: 'resultado-busca', component: ResultadoBusca },

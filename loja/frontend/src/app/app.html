@@ -21,6 +21,7 @@
         }
       </a>
       @if (auth.isLoggedIn()) {
+        <a class="menu-link" routerLink="/meus-pedidos" routerLinkActive="ativo" (click)="fecharMenu()">Meus pedidos</a>
         <a class="menu-link" routerLink="/cadastro" routerLinkActive="ativo" (click)="fecharMenu()">
           Olá, {{ auth.getCliente()?.nome }}
         </a>

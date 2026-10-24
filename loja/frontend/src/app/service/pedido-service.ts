@@ -20,6 +20,11 @@ export class PedidoService {
     );
   }
 
+  /** GET /api/pedidos/cliente/{clienteId} */
+  public listarPorCliente(clienteId: number): Observable<Pedido[]> {
+    return this.http.get<Pedido[]>(`${this.url}/cliente/${clienteId}`);
+  }
+
   /** Último pedido gravado (sobrevive a recarregar a página). */
   public getUltimoPedido(): Pedido | null {
     if (!this.ultimo) {
