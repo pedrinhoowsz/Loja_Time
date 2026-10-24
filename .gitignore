@@ -1,0 +1,15 @@
+# Dependências e builds (são gerados de novo com npm install / mvn package)
+node_modules/
+dist/
+.angular/
+target/
+
+# Banco H2 local e variáveis de ambiente com senhas
+loja/backend/data/
+.env
+
+# IDE / sistema
+.idea/
+*.iml
+.DS_Store
+Thumbs.db
