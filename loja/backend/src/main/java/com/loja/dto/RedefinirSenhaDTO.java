@@ -6,11 +6,11 @@ import jakarta.validation.constraints.Pattern;
 
 public class RedefinirSenhaDTO {
 
-    @NotBlank
-    @Email
+    @NotBlank(message = "Informe o email")
+    @Email(message = "Email inválido")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Informe a nova senha")
     @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}",
              message = "A senha deve ter no mínimo 8 caracteres, com letra maiúscula, minúscula, número e caractere especial (@$!%*?&)")
     private String novaSenha;

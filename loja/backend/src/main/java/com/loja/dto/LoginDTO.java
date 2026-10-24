@@ -4,10 +4,10 @@ import jakarta.validation.constraints.NotBlank;
 
 public class LoginDTO {
 
-    @NotBlank
+    @NotBlank(message = "Informe o email")
     private String email;
 
-    @NotBlank
+    @NotBlank(message = "Informe a senha")
     private String senha;
 
     public String getEmail() {

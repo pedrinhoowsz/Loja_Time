@@ -15,8 +15,8 @@ public class ClienteDTO {
     @Email(message = "Email inválido")
     private String email;
 
-    @NotBlank(message = "Senha é obrigatória")
-    @Pattern(regexp = "(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}",
+    // Vazia = manter a senha atual (so ao alterar). No cadastro e obrigatoria.
+    @Pattern(regexp = "|(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}",
              message = "A senha deve ter no mínimo 8 caracteres, com letra maiúscula, minúscula, número e caractere especial (@$!%*?&)")
     private String senha;
 
