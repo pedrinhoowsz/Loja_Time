@@ -18,7 +18,7 @@
     <div class="itens">
       @for (item of obj.itens; track $index) {
         <div class="item">
-          <img [src]="item.produto.imagem" [alt]="item.produto.nome">
+          <img [src]="item.produto.imagem" [alt]="item.produto.nome" loading="lazy">
           <div class="flex-grow-1">
             <strong>{{ item.produto.nome }}</strong>
             <small class="text-muted d-block">

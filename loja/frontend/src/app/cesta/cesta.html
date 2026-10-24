@@ -20,7 +20,7 @@
       <div class="lista">
         @for (item of itens; track item.produto.id + '-' + item.tamanho; let i = $index) {
           <div class="linha">
-            <img [src]="item.produto.imagem" class="thumb" [alt]="item.produto.nome">
+            <img [src]="item.produto.imagem" class="thumb" [alt]="item.produto.nome" loading="lazy">
 
             <div class="info">
               <a [routerLink]="['/detalhe', item.produto.id]" class="nome">{{ item.produto.nome }}</a>
