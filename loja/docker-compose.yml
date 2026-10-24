@@ -1,11 +1,12 @@
 # Opcional: sobe um MySQL pronto para o backend (docker compose up -d)
+# A senha vem do arquivo .env (copie de .env.example).
 services:
   mysql:
     image: mysql:8.0
     container_name: loja-mysql
     restart: unless-stopped
     environment:
-      MYSQL_ROOT_PASSWORD: il785612
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?defina MYSQL_ROOT_PASSWORD no arquivo .env}
       MYSQL_DATABASE: loja_time
     ports:
       - "3306:3306"

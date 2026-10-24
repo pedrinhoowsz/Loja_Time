@@ -2,6 +2,7 @@ package com.loja.config;
 
 import com.loja.model.Produto;
 import com.loja.repository.ProdutoRepository;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,8 +15,6 @@ import org.springframework.context.annotation.Configuration;
  */
 @Configuration
 public class DataInitializer {
-
-    private static final String BASE_IMAGENS = "http://localhost:8082/uploads/";
 
     // arquivo da foto, nome, descricao, preco, time, categoria, tamanhos
     private static final String[][] PRODUTOS = {
@@ -41,10 +40,12 @@ public class DataInitializer {
     };
 
     @Bean
-    CommandLineRunner initProdutos(ProdutoRepository produtoRepository) {
+    CommandLineRunner initProdutos(ProdutoRepository produtoRepository,
+                                   @Value("${loja.url-publica}") String urlPublica) {
+        String baseImagens = urlPublica.replaceAll("/+$", "") + "/uploads/";
         return args -> {
             for (String[] d : PRODUTOS) {
-                String imagem = BASE_IMAGENS + d[0];
+                String imagem = baseImagens + d[0];
                 Produto p = produtoRepository.findByImagem(imagem).orElseGet(Produto::new);
                 p.setImagem(imagem);
                 p.setNome(d[1]);
