@@ -40,6 +40,7 @@ Todos os métodos abaixo estão implementados nos services do frontend.
 | Método | Endpoint | Descrição |
 |--------|----------|-----------|
 | POST | `/api/pedidos` | Gravar Pedido |
+| GET | `/api/pedidos/cliente/{clienteId}` | Histórico de pedidos do cliente |
 
 ## Telas do Frontend (estrutura do "modelo")
 
@@ -53,6 +54,7 @@ frontend/src/app/
 ├── detalhe/          Detalhe do produto + comprar   (rota /detalhe/:id)
 ├── cesta/            Cesta e finalizar pedido       (rota /cesta)
 ├── pedido/           Confirmação do pedido          (rota /pedido)
+├── meus-pedidos/     Histórico de pedidos           (rota /meus-pedidos)
 ├── login/            Login                          (rota /login)
 ├── cadastro/         Novo cadastro / Meus dados     (rota /cadastro)
 └── reenvio/          Esqueci minha senha            (rota /reenvio)
@@ -71,9 +73,10 @@ O layout é responsivo (Bootstrap 5): menu recolhível, grade de produtos de 2/3
 
 **Opção 1 – MySQL (padrão)**
 
-1. Suba um MySQL 8 (instalado, ou `docker compose up -d` na raiz do projeto).
-2. Ajuste usuário/senha em `backend/src/main/resources/application.properties`
-   ou use as variáveis de ambiente `DB_URL`, `DB_USER` e `DB_PASSWORD`.
+1. Copie `.env.example` para `.env` (nesta pasta `loja/`) e coloque a sua senha do MySQL.
+   O `.env` fica fora do GitHub; nunca coloque senhas direto no código.
+2. Suba um MySQL 8 (instalado, ou `docker compose up -d` aqui na pasta `loja/`).
+   O backend lê `DB_URL`, `DB_USER` e `DB_PASSWORD` do `.env` ou de variáveis de ambiente.
 3. (Opcional) crie as tabelas manualmente: `mysql -u root -p < database/init.sql`.
    O Hibernate também cria/atualiza as tabelas sozinho (`ddl-auto=update`).
 
@@ -117,4 +120,15 @@ Aplicação disponível em: `http://localhost:4200`
 
 ## Produtos de Exemplo
 
-O backend insere automaticamente camisas e acessórios de times (Palmeiras, Corinthians, Flamengo) na primeira execução.
+O backend cadastra automaticamente 19 produtos (camisas e shorts de Santos, Corinthians, Palmeiras, São Paulo, Real Madrid, Bayern, Lyon, Arsenal, Napoli, Chelsea e Alemanha). As fotos ficam em `backend/src/main/resources/static/uploads`.
+
+## Segurança
+
+- As senhas são gravadas com hash **BCrypt**. Contas antigas, com senha em texto puro, são convertidas automaticamente no próximo login.
+- O email é salvo em minúsculas e o login não diferencia maiúsculas de minúsculas.
+- O pedido é validado no servidor: produto ativo, tamanho existente e no máximo 10 unidades por item. O total é calculado no backend.
+
+## Limitações conhecidas
+
+- A API não tem autenticação por token: qualquer pessoa que chame a API direto consegue consultar dados de um cliente pelo id.
+- "Esqueci minha senha" troca a senha só com o email, sem enviar um código de confirmação. Para produção seria preciso mandar um link/código por email.
