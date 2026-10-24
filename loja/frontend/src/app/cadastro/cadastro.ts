@@ -41,7 +41,7 @@ export class Cadastro implements OnInit {
     this.loading = true;
     this.service.consultar(logado.id).subscribe({
       next: cliente => {
-        // a senha nunca é exibida: precisa ser informada novamente
+        // a senha nunca é exibida; em branco = manter a atual
         this.obj = Object.assign(new Cliente(), cliente, { senha: '' });
         this.loading = false;
       },
