@@ -11,6 +11,8 @@ public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
     List<Produto> findByAtivoTrue();
 
+    Optional<Produto> findByIdAndAtivoTrue(Long id);
+
     Optional<Produto> findByImagem(String imagem);
 
     @Query("SELECT p FROM Produto p WHERE p.ativo = true AND " +

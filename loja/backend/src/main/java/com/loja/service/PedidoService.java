@@ -9,6 +9,9 @@ import com.loja.model.Produto;
 import com.loja.repository.ClienteRepository;
 import com.loja.repository.PedidoRepository;
 import com.loja.repository.ProdutoRepository;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Arrays;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -37,12 +40,15 @@ public class PedidoService {
         Pedido pedido = new Pedido();
         pedido.setCliente(cliente);
 
-        double total = 0;
+        // BigDecimal evita erro de arredondamento (ex.: 349.90 * 3 = 1049.6999...)
+        BigDecimal total = BigDecimal.ZERO;
 
         for (ItemPedidoDTO itemDto : dto.getItens()) {
-            Produto produto = produtoRepository.findById(itemDto.getProdutoId())
-                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND,
-                            "Produto não encontrado: " + itemDto.getProdutoId()));
+            Produto produto = produtoRepository.findByIdAndAtivoTrue(itemDto.getProdutoId())
+                    .orElseThrow(() -> new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                            "Produto indisponível: " + itemDto.getProdutoId()));
+
+            validarTamanho(produto, itemDto.getTamanho());
 
             ItemPedido item = new ItemPedido();
             item.setPedido(pedido);
@@ -51,11 +57,25 @@ public class PedidoService {
             item.setTamanho(itemDto.getTamanho());
             item.setPrecoUnitario(produto.getPreco());
 
-            total += produto.getPreco() * itemDto.getQuantidade();
+            total = total.add(BigDecimal.valueOf(produto.getPreco())
+                    .multiply(BigDecimal.valueOf(itemDto.getQuantidade())));
             pedido.getItens().add(item);
         }
 
-        pedido.setTotal(total);
+        pedido.setTotal(total.setScale(2, RoundingMode.HALF_UP).doubleValue());
         return pedidoRepository.save(pedido);
+    }
+
+    private void validarTamanho(Produto produto, String tamanho) {
+        if (produto.getTamanhos() == null || produto.getTamanhos().isBlank()) {
+            return;
+        }
+        boolean valido = tamanho != null && Arrays.stream(produto.getTamanhos().split(","))
+                .map(String::trim)
+                .anyMatch(t -> t.equalsIgnoreCase(tamanho.trim()));
+        if (!valido) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
+                    "Tamanho inválido para " + produto.getNome());
+        }
     }
 }

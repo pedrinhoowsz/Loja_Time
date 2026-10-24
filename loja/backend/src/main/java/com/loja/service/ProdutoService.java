@@ -28,7 +28,7 @@ public class ProdutoService {
     }
 
     public Produto carregarProduto(Long id) {
-        return produtoRepository.findById(id)
+        return produtoRepository.findByIdAndAtivoTrue(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado"));
     }
 }

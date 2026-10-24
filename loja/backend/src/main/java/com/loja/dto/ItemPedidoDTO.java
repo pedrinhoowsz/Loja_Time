@@ -1,15 +1,17 @@
 package com.loja.dto;
 
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
 public class ItemPedidoDTO {
 
     @NotNull
-  private Long produtoId;
+    private Long produtoId;
 
     @NotNull
-    @Positive
+    @Positive(message = "Quantidade inválida")
+    @Max(value = 10, message = "Máximo de 10 unidades por item")
     private Integer quantidade;
 
     private String tamanho;

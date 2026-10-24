@@ -10,7 +10,7 @@ public class PedidoDTO {
     @NotNull
     private Long clienteId;
 
-    @NotEmpty
+    @NotEmpty(message = "O pedido não tem itens")
     @Valid
     private List<ItemPedidoDTO> itens;
 
