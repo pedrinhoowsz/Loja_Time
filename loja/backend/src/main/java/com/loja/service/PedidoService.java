@@ -12,6 +12,7 @@ import com.loja.repository.ProdutoRepository;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.Arrays;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -64,6 +65,11 @@ public class PedidoService {
 
         pedido.setTotal(total.setScale(2, RoundingMode.HALF_UP).doubleValue());
         return pedidoRepository.save(pedido);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Pedido> listarPorCliente(Long clienteId) {
+        return pedidoRepository.findByClienteIdOrderByDataPedidoDesc(clienteId);
     }
 
     private void validarTamanho(Produto produto, String tamanho) {
